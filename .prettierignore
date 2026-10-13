@@ -1,0 +1,5 @@
+node_modules
+dist
+sql/snowflake/01a_load_raw_data.sql
+validation/golden.json
+package-lock.json

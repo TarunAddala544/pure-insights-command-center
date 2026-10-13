@@ -1,0 +1,11 @@
+item,sheet_value,how_to_compute,source_of_truth
+"Unit cost per view, RPT_200",2.185,"SUM(snowflake_credits_consumed) over rows where credits >= 0 AND report_id='RPT_200', times credit price 3.00, divided by SUM(monthly_active_views) over the same rows. Ratio of sums, rounded to 3 dp.",manual pandas calculation on raw CSV
+"Unit cost per view, RPT_223",4.539,"Same formula, report_id='RPT_223'. Highest-cost report in the fleet.",manual pandas calculation on raw CSV
+"Unit cost per view, RPT_250",2.354,"Same formula, report_id='RPT_250'.",manual pandas calculation on raw CSV
+"Unit cost per view, RPT_270",2.175,"Same formula, report_id='RPT_270'.",manual pandas calculation on raw CSV
+"Unit cost per view, RPT_299",1.535,"Same formula, report_id='RPT_299'. Lowest unit cost in the fleet.",manual pandas calculation on raw CSV
+"Latest sweep: reports with latency > 15 s",76,"COUNT of rows with snapshot_id between 1901 and 2000 (sweep 19) and avg_load_time_sec > 15, strict inequality.",manual pandas calculation on raw CSV
+"Latest sweep: refresh failures",25,"COUNT of rows with snapshot_id between 1901 and 2000 and UPPER(TRIM(last_refresh_status)) in ('FAILED','TIMED_OUT'). UNKNOWN is not a failure.",manual pandas calculation on raw CSV
+"Latest sweep: CRIT latency (> 45 s)",9,"COUNT of rows with snapshot_id between 1901 and 2000 and avg_load_time_sec > 45.",manual pandas calculation on raw CSV
+"Whole file: rows with negative credits",24,"COUNT of all 2000 rows where snowflake_credits_consumed < 0. These are quarantined, not abs'd or clamped.",manual pandas calculation on raw CSV
+"Whole file: rows with latency exactly 15.0",7,"COUNT of all 2000 rows where avg_load_time_sec = 15.0 exactly. Boundary case: these must NOT alert, because the rule is strictly greater than 15.",manual pandas calculation on raw CSV

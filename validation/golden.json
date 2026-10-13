@@ -1,0 +1,554 @@
+{
+  "alert_firings": {
+    "latency": 1490,
+    "refresh": 564
+  },
+  "alert_stored_incidents": {
+    "latency_escalated": 351,
+    "latency_open": 433,
+    "refresh": 419,
+    "total": 1203
+  },
+  "alert_toasts": 382,
+  "clean_credit_total": 1206352.48,
+  "clean_rows": 1976,
+  "cost_outliers_z35": 27,
+  "csv_sha256": "bee8b5a451167aab11add9c6c2fc959f37d0c93b6ebc2560a93254849c8f4d50",
+  "fleet_unit_cost": 2.434,
+  "latency_exactly15": 7,
+  "latency_gt15": 1490,
+  "latency_max": 55.0,
+  "latest_sweep": {
+    "crit": 9,
+    "latency_gt15": 76,
+    "orphans": 14,
+    "refresh_failures": 25,
+    "unknown": 5
+  },
+  "negative_credit_sum": -161.04,
+  "orphan_chronic": 16,
+  "orphan_nan_rows": 128,
+  "orphan_rows": 245,
+  "orphan_token_rows": 117,
+  "orphaned_now": 14,
+  "peak_gt_views_rows": 93,
+  "per_report": {
+    "RPT_200": {
+      "credits": 10488.68,
+      "unit_cost": 2.184838,
+      "views": 14402
+    },
+    "RPT_201": {
+      "credits": 11712.21,
+      "unit_cost": 2.259881,
+      "views": 15548
+    },
+    "RPT_202": {
+      "credits": 13387.37,
+      "unit_cost": 3.049515,
+      "views": 13170
+    },
+    "RPT_203": {
+      "credits": 11725.65,
+      "unit_cost": 2.260875,
+      "views": 15559
+    },
+    "RPT_204": {
+      "credits": 10489.43,
+      "unit_cost": 2.240214,
+      "views": 14047
+    },
+    "RPT_205": {
+      "credits": 13970.64,
+      "unit_cost": 2.842835,
+      "views": 14743
+    },
+    "RPT_206": {
+      "credits": 11765.37,
+      "unit_cost": 2.434047,
+      "views": 14501
+    },
+    "RPT_207": {
+      "credits": 11342.62,
+      "unit_cost": 2.141599,
+      "views": 15889
+    },
+    "RPT_208": {
+      "credits": 12867.52,
+      "unit_cost": 2.536472,
+      "views": 15219
+    },
+    "RPT_209": {
+      "credits": 15903.78,
+      "unit_cost": 3.092717,
+      "views": 15427
+    },
+    "RPT_210": {
+      "credits": 11354.79,
+      "unit_cost": 2.597954,
+      "views": 13112
+    },
+    "RPT_211": {
+      "credits": 11856.79,
+      "unit_cost": 2.67366,
+      "views": 13304
+    },
+    "RPT_212": {
+      "credits": 11560.41,
+      "unit_cost": 2.313007,
+      "views": 14994
+    },
+    "RPT_213": {
+      "credits": 11729.06,
+      "unit_cost": 2.342065,
+      "views": 15024
+    },
+    "RPT_214": {
+      "credits": 13714.7,
+      "unit_cost": 2.598794,
+      "views": 15832
+    },
+    "RPT_215": {
+      "credits": 9432.99,
+      "unit_cost": 2.120408,
+      "views": 13346
+    },
+    "RPT_216": {
+      "credits": 10093.18,
+      "unit_cost": 2.482133,
+      "views": 12199
+    },
+    "RPT_217": {
+      "credits": 12293.04,
+      "unit_cost": 2.040226,
+      "views": 18076
+    },
+    "RPT_218": {
+      "credits": 12372.0,
+      "unit_cost": 2.875649,
+      "views": 12907
+    },
+    "RPT_219": {
+      "credits": 13417.28,
+      "unit_cost": 2.517943,
+      "views": 15986
+    },
+    "RPT_220": {
+      "credits": 13534.62,
+      "unit_cost": 2.808984,
+      "views": 14455
+    },
+    "RPT_221": {
+      "credits": 14018.77,
+      "unit_cost": 2.49193,
+      "views": 16877
+    },
+    "RPT_222": {
+      "credits": 10564.87,
+      "unit_cost": 2.488389,
+      "views": 12737
+    },
+    "RPT_223": {
+      "credits": 17034.76,
+      "unit_cost": 4.538971,
+      "views": 11259
+    },
+    "RPT_224": {
+      "credits": 12962.17,
+      "unit_cost": 2.730986,
+      "views": 14239
+    },
+    "RPT_225": {
+      "credits": 12848.15,
+      "unit_cost": 3.142638,
+      "views": 12265
+    },
+    "RPT_226": {
+      "credits": 12388.78,
+      "unit_cost": 3.17824,
+      "views": 11694
+    },
+    "RPT_227": {
+      "credits": 11577.16,
+      "unit_cost": 2.186983,
+      "views": 15881
+    },
+    "RPT_228": {
+      "credits": 12704.01,
+      "unit_cost": 2.455197,
+      "views": 15523
+    },
+    "RPT_229": {
+      "credits": 11238.82,
+      "unit_cost": 3.710406,
+      "views": 9087
+    },
+    "RPT_230": {
+      "credits": 14074.37,
+      "unit_cost": 2.947512,
+      "views": 14325
+    },
+    "RPT_231": {
+      "credits": 12162.82,
+      "unit_cost": 3.118672,
+      "views": 11700
+    },
+    "RPT_232": {
+      "credits": 14450.31,
+      "unit_cost": 2.492006,
+      "views": 17396
+    },
+    "RPT_233": {
+      "credits": 14340.69,
+      "unit_cost": 2.46856,
+      "views": 17428
+    },
+    "RPT_234": {
+      "credits": 13222.04,
+      "unit_cost": 2.622033,
+      "views": 15128
+    },
+    "RPT_235": {
+      "credits": 13918.55,
+      "unit_cost": 3.150181,
+      "views": 13255
+    },
+    "RPT_236": {
+      "credits": 9983.66,
+      "unit_cost": 2.400688,
+      "views": 12476
+    },
+    "RPT_237": {
+      "credits": 12671.82,
+      "unit_cost": 2.272293,
+      "views": 16730
+    },
+    "RPT_238": {
+      "credits": 10699.37,
+      "unit_cost": 2.077548,
+      "views": 15450
+    },
+    "RPT_239": {
+      "credits": 11074.29,
+      "unit_cost": 2.168453,
+      "views": 15321
+    },
+    "RPT_240": {
+      "credits": 8756.57,
+      "unit_cost": 2.238387,
+      "views": 11736
+    },
+    "RPT_241": {
+      "credits": 12874.55,
+      "unit_cost": 2.570797,
+      "views": 15024
+    },
+    "RPT_242": {
+      "credits": 14954.13,
+      "unit_cost": 2.752969,
+      "views": 16296
+    },
+    "RPT_243": {
+      "credits": 12604.24,
+      "unit_cost": 2.346284,
+      "views": 16116
+    },
+    "RPT_244": {
+      "credits": 12300.54,
+      "unit_cost": 2.226342,
+      "views": 16575
+    },
+    "RPT_245": {
+      "credits": 10865.61,
+      "unit_cost": 2.662487,
+      "views": 12243
+    },
+    "RPT_246": {
+      "credits": 12729.65,
+      "unit_cost": 2.415952,
+      "views": 15807
+    },
+    "RPT_247": {
+      "credits": 10904.21,
+      "unit_cost": 2.177648,
+      "views": 15022
+    },
+    "RPT_248": {
+      "credits": 12566.29,
+      "unit_cost": 2.27774,
+      "views": 16551
+    },
+    "RPT_249": {
+      "credits": 10292.53,
+      "unit_cost": 1.620871,
+      "views": 19050
+    },
+    "RPT_250": {
+      "credits": 12902.71,
+      "unit_cost": 2.353936,
+      "views": 16444
+    },
+    "RPT_251": {
+      "credits": 13814.75,
+      "unit_cost": 2.290244,
+      "views": 18096
+    },
+    "RPT_252": {
+      "credits": 8806.19,
+      "unit_cost": 1.842685,
+      "views": 14337
+    },
+    "RPT_253": {
+      "credits": 8938.61,
+      "unit_cost": 1.702052,
+      "views": 15755
+    },
+    "RPT_254": {
+      "credits": 10536.63,
+      "unit_cost": 2.122609,
+      "views": 14892
+    },
+    "RPT_255": {
+      "credits": 12492.86,
+      "unit_cost": 2.8258,
+      "views": 13263
+    },
+    "RPT_256": {
+      "credits": 13536.43,
+      "unit_cost": 2.551476,
+      "views": 15916
+    },
+    "RPT_257": {
+      "credits": 13877.44,
+      "unit_cost": 2.47355,
+      "views": 16831
+    },
+    "RPT_258": {
+      "credits": 10307.67,
+      "unit_cost": 2.064424,
+      "views": 14979
+    },
+    "RPT_259": {
+      "credits": 13359.67,
+      "unit_cost": 2.653009,
+      "views": 15107
+    },
+    "RPT_260": {
+      "credits": 11580.03,
+      "unit_cost": 2.145907,
+      "views": 16189
+    },
+    "RPT_261": {
+      "credits": 11832.93,
+      "unit_cost": 2.347804,
+      "views": 15120
+    },
+    "RPT_262": {
+      "credits": 9739.75,
+      "unit_cost": 1.980295,
+      "views": 14755
+    },
+    "RPT_263": {
+      "credits": 11449.72,
+      "unit_cost": 2.13508,
+      "views": 16088
+    },
+    "RPT_264": {
+      "credits": 11397.33,
+      "unit_cost": 2.632786,
+      "views": 12987
+    },
+    "RPT_265": {
+      "credits": 12078.78,
+      "unit_cost": 2.967516,
+      "views": 12211
+    },
+    "RPT_266": {
+      "credits": 11416.31,
+      "unit_cost": 2.163546,
+      "views": 15830
+    },
+    "RPT_267": {
+      "credits": 11122.09,
+      "unit_cost": 2.49002,
+      "views": 13400
+    },
+    "RPT_268": {
+      "credits": 13269.59,
+      "unit_cost": 3.014902,
+      "views": 13204
+    },
+    "RPT_269": {
+      "credits": 13779.54,
+      "unit_cost": 2.285543,
+      "views": 18087
+    },
+    "RPT_270": {
+      "credits": 10649.02,
+      "unit_cost": 2.174749,
+      "views": 14690
+    },
+    "RPT_271": {
+      "credits": 9839.62,
+      "unit_cost": 1.83838,
+      "views": 16057
+    },
+    "RPT_272": {
+      "credits": 12221.79,
+      "unit_cost": 2.90143,
+      "views": 12637
+    },
+    "RPT_273": {
+      "credits": 14424.27,
+      "unit_cost": 2.959837,
+      "views": 14620
+    },
+    "RPT_274": {
+      "credits": 11770.84,
+      "unit_cost": 2.172811,
+      "views": 16252
+    },
+    "RPT_275": {
+      "credits": 14270.02,
+      "unit_cost": 3.151042,
+      "views": 13586
+    },
+    "RPT_276": {
+      "credits": 10093.52,
+      "unit_cost": 2.1075,
+      "views": 14368
+    },
+    "RPT_277": {
+      "credits": 11908.93,
+      "unit_cost": 2.728694,
+      "views": 13093
+    },
+    "RPT_278": {
+      "credits": 13088.95,
+      "unit_cost": 2.516461,
+      "views": 15604
+    },
+    "RPT_279": {
+      "credits": 8616.61,
+      "unit_cost": 1.609779,
+      "views": 16058
+    },
+    "RPT_280": {
+      "credits": 13089.67,
+      "unit_cost": 2.510646,
+      "views": 15641
+    },
+    "RPT_281": {
+      "credits": 12487.69,
+      "unit_cost": 2.425579,
+      "views": 15445
+    },
+    "RPT_282": {
+      "credits": 11600.24,
+      "unit_cost": 2.212379,
+      "views": 15730
+    },
+    "RPT_283": {
+      "credits": 11659.3,
+      "unit_cost": 1.911883,
+      "views": 18295
+    },
+    "RPT_284": {
+      "credits": 13015.33,
+      "unit_cost": 2.439155,
+      "views": 16008
+    },
+    "RPT_285": {
+      "credits": 12252.66,
+      "unit_cost": 2.451186,
+      "views": 14996
+    },
+    "RPT_286": {
+      "credits": 13461.93,
+      "unit_cost": 2.370754,
+      "views": 17035
+    },
+    "RPT_287": {
+      "credits": 11435.72,
+      "unit_cost": 2.401117,
+      "views": 14288
+    },
+    "RPT_288": {
+      "credits": 14898.67,
+      "unit_cost": 3.19897,
+      "views": 13972
+    },
+    "RPT_289": {
+      "credits": 11986.4,
+      "unit_cost": 2.449704,
+      "views": 14679
+    },
+    "RPT_290": {
+      "credits": 10279.28,
+      "unit_cost": 2.34794,
+      "views": 13134
+    },
+    "RPT_291": {
+      "credits": 10784.01,
+      "unit_cost": 2.338757,
+      "views": 13833
+    },
+    "RPT_292": {
+      "credits": 12990.22,
+      "unit_cost": 2.600298,
+      "views": 14987
+    },
+    "RPT_293": {
+      "credits": 12208.58,
+      "unit_cost": 2.318965,
+      "views": 15794
+    },
+    "RPT_294": {
+      "credits": 12333.57,
+      "unit_cost": 2.063966,
+      "views": 17927
+    },
+    "RPT_295": {
+      "credits": 12563.24,
+      "unit_cost": 4.213496,
+      "views": 8945
+    },
+    "RPT_296": {
+      "credits": 11361.52,
+      "unit_cost": 1.939709,
+      "views": 17572
+    },
+    "RPT_297": {
+      "credits": 8073.79,
+      "unit_cost": 1.534358,
+      "views": 15786
+    },
+    "RPT_298": {
+      "credits": 13157.09,
+      "unit_cost": 2.433794,
+      "views": 16218
+    },
+    "RPT_299": {
+      "credits": 7795.11,
+      "unit_cost": 1.535176,
+      "views": 15233
+    }
+  },
+  "price_per_credit": 3.0,
+  "quarantined_rows": 24,
+  "raw_credit_total": 1206191.44,
+  "refresh_failed": 382,
+  "refresh_success": 1336,
+  "refresh_timed_out": 182,
+  "refresh_unknown": 100,
+  "rows": 2000,
+  "sev_crit": 358,
+  "sev_high": 552,
+  "sev_warn": 580,
+  "success_rate_excl_unknown": 0.7032,
+  "unit_cost_max": 4.539,
+  "unit_cost_median": 2.4297,
+  "unit_cost_min": 1.5344,
+  "views_aws_pearson": -0.027,
+  "zero_view_rows": 4
+}

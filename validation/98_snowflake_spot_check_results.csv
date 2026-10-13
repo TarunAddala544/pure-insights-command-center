@@ -1,0 +1,11 @@
+﻿ITEM,SHEET_VALUE,RAW_SQL_VALUE,PIPELINE_VALUE,STATUS
+"Unit cost per view, RPT_200",2.185,2.185,2.185,PASS
+"Unit cost per view, RPT_223",4.539,4.539,4.539,PASS
+"Unit cost per view, RPT_250",2.354,2.354,2.354,PASS
+"Unit cost per view, RPT_270",2.175,2.175,2.175,PASS
+"Unit cost per view, RPT_299",1.535,1.535,1.535,PASS
+Latest sweep: reports with latency > 15 s,76,76,76,PASS
+Latest sweep: refresh failures,25,25,25,PASS
+Latest sweep: CRIT latency (> 45 s),9,9,9,PASS
+Whole file: rows with negative credits,24,24,24,PASS
+Whole file: rows with latency exactly 15.0,7,7,,PASS

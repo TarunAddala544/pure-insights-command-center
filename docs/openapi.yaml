@@ -1,0 +1,300 @@
+openapi: 3.0.3
+info:
+  title: Pure Insights Command Center API
+  version: 1.0.0
+  description: |
+    REST API for the Pure Insights Command Center. Snowflake is SIMULATED (DuckDB, schema ACCOUNT_USAGE_SIM).
+    Errors always use the envelope { error: { code, message, details?, requestId } }.
+    WebSocket protocol is specified in docs/API_SPEC.md (OpenAPI cannot describe it).
+servers:
+  - url: http://localhost:4000/api
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, requestId]
+          properties: { code: { type: string }, message: { type: string }, details: { type: array, items: { type: object } }, requestId: { type: string } }
+paths:
+  /auth/login:
+    post:
+      summary: "Log in and receive a JWT"
+      x-permission: public
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {"type":"object","required":["email","password"],"properties":{"email":{"type":"string","format":"email"},"password":{"type":"string"}}}
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /health:
+    get:
+      summary: "Liveness probe"
+      x-permission: public
+      security: []
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+  /auth/me:
+    get:
+      summary: "Current user from token"
+      x-permission: authenticated
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /overview:
+    get:
+      summary: "System health KPIs, latency trend, refresh success"
+      x-permission: dashboard:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /reports:
+    get:
+      summary: "Latest snapshot per report with owner state"
+      x-permission: dashboard:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /reports/{id}:
+    get:
+      summary: "Report history across sweeps + cost"
+      x-permission: dashboard:read
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '404': { description: Not found, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /orphans:
+    get:
+      summary: "Orphaned now, chronic orphans, assignments"
+      x-permission: dashboard:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /orphans/{reportId}/assign:
+    post:
+      summary: "Assign an owner to a currently orphaned report"
+      x-permission: orphans:assign
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: reportId, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {"type":"object","required":["ownerEmail"],"properties":{"ownerEmail":{"type":"string","format":"email"}}}
+      responses:
+        '201': { description: Created, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '404': { description: Not found, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '409': { description: Conflict, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /usage:
+    get:
+      summary: "Report usage: views, queries, concurrency, idle snapshots"
+      x-permission: dashboard:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /costs:
+    get:
+      summary: "Per-report credits, cost and unit cost per active view"
+      x-permission: costs:read
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: price, in: query, required: false, schema: { type: number } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /costs/summary:
+    get:
+      summary: "Fleet unit cost, reconciliation, proxy control, users vs AWS"
+      x-permission: costs:read
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: price, in: query, required: false, schema: { type: number } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /data-quality:
+    get:
+      summary: "The four defects: rule, count, treatment, rationale, evidence"
+      x-permission: dq:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /quarantine:
+    get:
+      summary: "Quarantined (negative-credit) rows with raw values"
+      x-permission: dq:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /alerts:
+    get:
+      summary: "Persisted alert history (filterable)"
+      x-permission: alerts:read
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: severity, in: query, required: false, schema: { type: string } }
+        - { name: status, in: query, required: false, schema: { type: string } }
+        - { name: rule, in: query, required: false, schema: { type: string } }
+        - { name: limit, in: query, required: false, schema: { type: integer } }
+        - { name: offset, in: query, required: false, schema: { type: integer } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /alerts/inject:
+    post:
+      summary: "Inject a test alert event (demo)"
+      x-permission: alerts:inject
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {"type":"object","description":"At least one of latencySec / refreshStatus","required":["reportId"],"properties":{"reportId":{"type":"string","pattern":"^RPT_\\d+$"},"latencySec":{"type":"number","minimum":0,"maximum":3600},"refreshStatus":{"type":"string","enum":["SUCCESS","FAILED","TIMED_OUT","UNKNOWN"]}}}
+      responses:
+        '201': { description: Created, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /alerts/{id}/ack:
+    post:
+      summary: "Acknowledge an alert"
+      x-permission: alerts:ack
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '404': { description: Not found, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '409': { description: Conflict, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /alerts/{id}/resolve:
+    post:
+      summary: "Resolve an alert"
+      x-permission: alerts:ack
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '404': { description: Not found, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '409': { description: Conflict, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /telemetry:
+    get:
+      summary: "Connections, replay position, alert counts, ingestion stats"
+      x-permission: dashboard:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /replay:
+    get:
+      summary: "Replay status"
+      x-permission: dashboard:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /replay/start:
+    post:
+      summary: "Start replay"
+      x-permission: replay:control
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /replay/pause:
+    post:
+      summary: "Pause replay"
+      x-permission: replay:control
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /replay/reset:
+    post:
+      summary: "Reset replay and clear alert history"
+      x-permission: replay:control
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /users:
+    get:
+      summary: "List users"
+      x-permission: users:manage
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /users/{id}:
+    patch:
+      summary: "Change role / active flag"
+      x-permission: users:manage
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {"type":"object","description":"At least one field","properties":{"role":{"type":"string","enum":["admin","analyst","viewer"]},"active":{"type":"boolean"}}}
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '400': { description: Validation error, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '404': { description: Not found, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+  /audit:
+    get:
+      summary: "Audit log of privileged actions"
+      x-permission: audit:read
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { type: object } } } }
+        '401': { description: Missing/invalid token, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+        '403': { description: Role lacks permission, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }

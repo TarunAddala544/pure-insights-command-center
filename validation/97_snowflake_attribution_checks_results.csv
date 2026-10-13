@@ -1,0 +1,15 @@
+﻿CHECK_NAME,ACTUAL,EXPECTED,STATUS
+bucket: attributed credits,1206352.48,1206352.48,PASS
+bucket: excluded negative credits,-161.04,-161.04,PASS
+bucket: metered total,1206191.44,1206191.44,PASS
+bucket: unattributed idle,0,0,PASS
+bucket gap: attributed + idle + excluded - metered,0,0,PASS
+reports compared with independent raw recount,100,100,PASS
+reports whose attributed credits differ from raw recount,0,0,PASS
+fleet: credits,1206352.48,1206352.48,PASS
+fleet: snowflake cost usd,3619057.44,3619057.44,PASS
+fleet: active views,1486905,1486905,PASS
+top cost report RPT_223: credits (and it ranks first),17034.76,17034.76,PASS
+top cost report: unit cost per view (RPT_223),4.539,4.539,PASS
+reports with NULL unit cost,0,0,PASS
+reconciliation checks that passed (of 6),6,6,PASS

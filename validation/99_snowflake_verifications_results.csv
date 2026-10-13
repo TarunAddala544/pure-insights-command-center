@@ -1,0 +1,14 @@
+﻿METRIC,ACTUAL,EXPECTED_FROM_PANDAS,STATUS
+clean_credit_total,1206352.48,1206352.48,PASS
+clean_rows,1976,1976,PASS
+cost_per_view_outliers,27,27,PASS
+fleet_unit_cost_usd,2.434,2.434,PASS
+latency_gt_15s_rows,1490,1490,PASS
+negative_credit_sum,-161.04,-161.04,PASS
+orphan_owner_rows,245,245,PASS
+orphaned_now,14,14,PASS
+peak_gt_views_rows,93,93,PASS
+quarantined_rows,24,24,PASS
+raw_rows,2000,2000,PASS
+reconciliation_failed_checks,0,0,PASS
+unit_cost_median_usd,2.4297,2.4297,PASS

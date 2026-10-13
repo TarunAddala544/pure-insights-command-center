@@ -1,0 +1,9 @@
+﻿node_modules/
+.env
+*.log
+backend.log
+dist/
+coverage/
+.DS_Store
+RUN_GUIDE_PRIVATE.md
+RUN_GUIDE.md

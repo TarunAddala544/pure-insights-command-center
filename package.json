@@ -1,0 +1,26 @@
+{
+  "name": "pure-insights-command-center",
+  "type": "module",
+  "private": true,
+  "version": "1.0.0",
+  "engines": { "node": ">=22" },
+  "workspaces": ["backend", "frontend"],
+  "scripts": {
+    "setup": "npm install && npm run seed",
+    "seed": "node scripts/seed.js",
+    "start": "concurrently -n api,web -c blue,green \"npm run start -w backend\" \"npm run dev -w frontend\"",
+    "test": "npm test -w backend",
+    "lint": "eslint .",
+    "format": "prettier --write backend frontend scripts eslint.config.js",
+    "format:check": "prettier --check backend frontend scripts eslint.config.js",
+    "verify": "python3 validation/verify.py && npm test -w backend && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "eslint": "^9.12.0",
+    "@eslint/js": "^9.12.0",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3",
+    "eslint-plugin-react": "^7.37.1"
+  }
+}
